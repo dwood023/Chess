@@ -116,4 +116,36 @@ public class Game {
         }
     }
 
+    public void print() {
+
+        for (int y = 0; y < masterBoard.length; ++y) {
+            for (int x = 0; x < masterBoard.length; ++x) {
+
+                if (masterBoard[x][y] != null) {
+
+                    if (masterBoard[x][y] instanceof Pawn)
+                        System.out.print("P");
+                    else if (masterBoard[x][y] instanceof Queen)
+                        System.out.print("Q");
+                    else if (masterBoard[x][y] instanceof King)
+                        System.out.print("K");
+                    else if (masterBoard[x][y] instanceof Knight)
+                        System.out.print("H");
+                    else if (masterBoard[x][y] instanceof Rook)
+                        System.out.print("R");
+                    else if (masterBoard[x][y] instanceof Bishop)
+                        System.out.print("B");
+                }
+                else {
+                    System.out.print(" ");
+                }
+
+                System.out.print(" ");
+
+
+            }
+            System.out.println();
+        }
+    }
+
 }
