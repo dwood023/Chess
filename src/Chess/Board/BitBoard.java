@@ -15,7 +15,7 @@ public class BitBoard {
 
     public boolean isPositionEmpty(Position pos) {
 
-        return ((Utils.getBitAtPosition(pos.x) & board[pos.y]) == 0);
+        return (Utils.getBitAtPosition(pos.x) & board[pos.y]) == 0;
     }
 
     public void setPositionToZero(Position pos) {

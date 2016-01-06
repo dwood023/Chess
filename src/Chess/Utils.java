@@ -5,7 +5,7 @@ package Chess;
  */
 public class Utils {
 
-    public static int getBitAtPosition(int x) {
-        return 0b10000000 >>> x;
+    public static byte getBitAtPosition(int x) {
+        return (byte) (0b10000000 >>> x);
     }
 }

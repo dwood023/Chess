@@ -1,0 +1,88 @@
+package Chess.Board;
+
+import Chess.Position;
+import org.junit.Test;
+
+import java.lang.reflect.Array;
+import java.util.Arrays;
+
+import static org.junit.Assert.*;
+
+
+/**
+ * Created by dwood on 06/01/2016.
+ */
+public class BitBoardTest {
+
+    @Test
+    public void testIsPositionEmptyFalse() {
+
+        BitBoard board = new BitBoard();
+
+        for (int y = 0; y < board.board.length; ++y){
+            for (int x = 0; x < board.board.length; ++x) {
+
+                Position bitPos = new Position(x, y);
+
+                board.board[y] = (byte) (0b10000000 >>> x);
+
+                assertFalse(board.isPositionEmpty(bitPos));
+            }
+        }
+    }
+
+    @Test
+    public void testIsPositionEmptyTrue() {
+
+        BitBoard board = new BitBoard();
+
+        for (int y = 0; y < board.board.length; ++y) {
+            for (int x = 0; x < board.board.length; ++x) {
+
+                Position emptyPos = new Position(x, y);
+
+                assertTrue(board.isPositionEmpty(emptyPos));
+            }
+        }
+    }
+
+    @Test
+    public void testSetPositionToZero() {
+
+        BitBoard board = new BitBoard();
+
+        Arrays.fill(board.board, (byte) 0b11111111);
+
+        for (int y = 0; y < board.board.length; ++y)
+            for (int x = 0; x < board.board.length; ++x) {
+
+                byte expected = (byte) ((byte) 0b01111111 >>> x);
+
+                board.setPositionToZero(new Position(x, y));
+
+                assertEquals(expected, board.board[y]);
+            }
+
+    }
+
+    @Test
+    public void testSetPositionToOne() {
+
+        BitBoard board = new BitBoard();
+
+        for (int y = 0; y < board.board.length; ++y)
+            for (int x = 0; x < board.board.length; ++x) {
+
+                byte expected = (byte) (0b10000000 >> x);
+
+                board.setPositionToOne(new Position(x, y));
+
+                assertEquals(expected, board.board[y]);
+
+                // I shouldn't need to do this
+                // Bit shifting on bytes shouldn't be this stupid
+                board.board[y] = 0;
+
+            }
+    }
+}
