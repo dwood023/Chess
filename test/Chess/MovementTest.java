@@ -12,102 +12,103 @@ public class MovementTest {
     @Test
     public void testIsStraightLineUD() throws Exception {
 
-        for (int oldY = 0; oldY < 8; ++oldY) {
-            for (int oldX = 0; oldX < 8; ++oldX) {
+        Position oldPos = new Position(3, 4);
+        for (int y = 0; y < 8; ++y)
+            if (y != oldPos.y) {
+                Position newPos = new Position(oldPos.x, y);
 
-                Position oldPos = new Position(oldX, oldY);
+                Movement moveUpDown = new Movement(oldPos, newPos, false);
 
-                for (int y = 0; y < 8; ++y) {
-
-                    if (y != oldPos.y) {
-                        Position newPos = new Position(oldPos.x, y);
-
-                        Movement moveUpDown = new Movement(oldPos, newPos, false);
-
-                        assertTrue(moveUpDown.isStraightLine());
-                    }
-                }
+                assertTrue(moveUpDown.isStraightLine());
             }
-        }
     }
 
     @Test
     public void testIsStraightLineLR() throws Exception {
 
-        for (int oldY = 0; oldY < 8; ++oldY) {
-            for (int oldX = 0; oldX < 8; ++oldX) {
+        Position oldPos = new Position(3, 4);
 
-                Position oldPos = new Position(oldX, oldY);
+        for (int x = 0; x < 8; ++x)
+            if (x != oldPos.x) {
+                Position newPos = new Position(x, oldPos.y);
 
-                for (int x = 0; x < 8; ++x) {
+                Movement moveLeftRight = new Movement(oldPos, newPos, false);
 
-                    if (x != oldPos.x) {
-                        Position newPos = new Position(x, oldPos.y);
-
-                        Movement moveLeftRight = new Movement(oldPos, newPos, false);
-
-                        assertTrue(moveLeftRight.isStraightLine());
-                    }
-                }
+                assertTrue(moveLeftRight.isStraightLine());
             }
-        }
+    }
+
+    @Test
+    public void testIsStraightLineFalse() {
+
+        Position oldPos = new Position(3, 4);
+
+        Position newPos = new Position(5, 5);
+
+        Movement move = new Movement(oldPos, newPos, false);
+
+        assertFalse(move.isStraightLine());
     }
 
     @Test
     public void testIsDiagonalLineUL() throws Exception {
 
-        for (int oldY = 0; oldY < 8; ++oldY) {
-            for (int oldX = 0; oldX < 8; ++oldX) {
-                Position oldPos = new Position(oldX, oldY);
+        Position oldPos = new Position(3, 4);
 
-                for (int x = oldX+1, y = oldY+1; x < 8 && y < 8; ++x, ++y) {
+        for (int x = oldPos.x+1, y = oldPos.y+1; x < 8 && y < 8; ++x, ++y) {
 
-                    Position newPos = new Position(x, y);
+            Position newPos = new Position(x, y);
 
-                    Movement move = new Movement(oldPos, newPos, false);
+            Movement move = new Movement(oldPos, newPos, false);
 
-                    assertTrue(move.isDiagonalLine());
-                }
+            assertTrue(move.isDiagonalLine());
+        }
 
-                for (int x = oldX-1, y = oldY-1; x >= 0 && y >= 0; --x, --y) {
+        for (int x = oldPos.x-1, y = oldPos.y-1; x >= 0 && y >= 0; --x, --y) {
 
-                    Position newPos = new Position(x, y);
+            Position newPos = new Position(x, y);
 
-                    Movement move = new Movement(oldPos, newPos, false);
+            Movement move = new Movement(oldPos, newPos, false);
 
-                    assertTrue(move.isDiagonalLine());
-                }
-            }
+            assertTrue(move.isDiagonalLine());
         }
     }
 
     @Test
     public void testIsDiagonalLineDR() throws Exception {
 
-        for (int oldY = 0; oldY < 8; ++oldY) {
-            for (int oldX = 0; oldX < 8; ++oldX) {
-                Position oldPos = new Position(oldX, oldY);
+        Position oldPos = new Position(3, 4);
 
-                for (int x = oldX+1, y = oldY-1; x < 8 && y >= 0; ++x, --y) {
+        for (int x = oldPos.x+1, y = oldPos.y-1; x < 8 && y >= 0; ++x, --y) {
 
-                    Position newPos = new Position(x, y);
+            Position newPos = new Position(x, y);
 
-                    Movement move = new Movement(oldPos, newPos, false);
+            Movement move = new Movement(oldPos, newPos, false);
 
-                    assertTrue(move.isDiagonalLine());
-                }
+            assertTrue(move.isDiagonalLine());
+        }
 
-                for (int x = oldX-1, y = oldY+1; x >= 0 && y < 8; --x, ++y) {
+        for (int x = oldPos.x-1, y = oldPos.y+1; x >= 0 && y < 8; --x, ++y) {
 
-                    Position newPos = new Position(x, y);
+            Position newPos = new Position(x, y);
 
-                    Movement move = new Movement(oldPos, newPos, false);
+            Movement move = new Movement(oldPos, newPos, false);
 
-                    assertTrue(move.isDiagonalLine());
-                }
-            }
+            assertTrue(move.isDiagonalLine());
         }
     }
 
+    @Test
+    public void testIsDiagonalLineFalse() {
+
+        Position oldPos = new Position(3, 4);
+
+        Position newPos = new Position(5, 7);
+
+        Movement move = new Movement(oldPos, newPos, false);
+
+        assertFalse(move.isDiagonalLine());
+
+    }
 
 }

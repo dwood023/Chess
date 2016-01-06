@@ -14,6 +14,6 @@ public class King extends Piece {
 
     @Override
     public boolean validMove(Movement move) {
-        return (Math.abs(move.oldX - move.newX) < 2 && Math.abs(move.oldY - move.newY) < 2);
+        return move.getXDiff() < 2 && move.getYDiff() < 2;
     }
 }

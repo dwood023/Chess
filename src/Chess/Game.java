@@ -92,7 +92,7 @@ public class Game {
     public void move(Position oldPos, Position newPos) {
         masterBoard[newPos.x][newPos.y] = masterBoard[oldPos.x][oldPos.y];
         masterBoard[oldPos.x][oldPos.y] = null;
-        // Sync the query boards...
+        // Update the boards...
         update();
     }
 
