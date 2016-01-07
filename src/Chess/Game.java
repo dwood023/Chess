@@ -31,16 +31,29 @@ public class Game {
         masterBoard[6][7] = new Knight(Colour.BLACK);
         masterBoard[7][7] = new Rook(Colour.BLACK);
 
-        update();
+        for (int y = 0; y < masterBoard.length; ++y) {
+            for (int x = 0; x < masterBoard.length; ++x) {
+
+                if (masterBoard[x][y] != null) {
+                    if (masterBoard[x][y].getColour() == Colour.WHITE)
+                        whiteOccupied.setPositionToOne(new Position(x, y));
+                    else
+                        blackOccupied.setPositionToOne(new Position(x, y));
+                }
+            }
+        }
+
+        syncBoards();
+
     }
 
     private Piece[][] masterBoard = new Piece[8][8];
 
     // Boards for query
 
-    private BitBoard whiteOccupied = new BitBoard();
-    private BitBoard blackOccupied = new BitBoard();
-    private BitBoard spacesOccupied = new BitBoard();
+    protected BitBoard whiteOccupied = new BitBoard();
+    protected BitBoard blackOccupied = new BitBoard();
+    protected BitBoard spacesOccupied = new BitBoard();
 
     // BEHAVIOUR
 
@@ -71,49 +84,52 @@ public class Game {
         Movement move = new Movement(oldPos, newPos, isCapture);
 
         // If the piece can't jump
-        if (!(masterBoard[oldPos.x][oldPos.y] instanceof Knight)) {
-
-            // Increments towards new x and y positions
-            // Will be -1 for left/down, 1 for right/up or 0 for no movement on that axis
-            int xMove = (move.getXDiff() == 0) ? 0 : move.getSignedXDiff() / move.getXDiff();
-            int yMove = (move.getYDiff() == 0) ? 0 : move.getSignedYDiff() / move.getYDiff();
-
-            // Is there anything in the way of the move?
-            for (int x = move.oldX, y = move.oldY; x != move.newX && y != move.newY; x += xMove, y += yMove) {
-                if (!spacesOccupied.isPositionEmpty(new Position(x, y)))
-                    return false;
-            }
-        }
+        if (isBlocked(move) && !(masterBoard[oldPos.x][oldPos.y] instanceof Knight))
+            return false;
 
         return masterBoard[oldPos.x][oldPos.y].validMove(move);
 
     }
 
-    public void move(Position oldPos, Position newPos) {
-        masterBoard[newPos.x][newPos.y] = masterBoard[oldPos.x][oldPos.y];
-        masterBoard[oldPos.x][oldPos.y] = null;
-        // Update the boards...
-        update();
+    protected boolean isBlocked(Movement move) {
+
+        // Increments towards new x and y positions
+        // Will be -1 for left/down, 1 for right/up or 0 for no movement on that axis
+        int xMove = (move.getXDiff() == 0) ? 0 : move.getSignedXDiff() / move.getXDiff();
+        int yMove = (move.getYDiff() == 0) ? 0 : move.getSignedYDiff() / move.getYDiff();
+
+        // Is there anything in the way of the move?
+        // This won't work if the movement isn't in a straight line of some kind
+        // Only knights move this way though, and they shouldn't call this method
+        for (int x = move.oldX + xMove, y = move.oldY + yMove; x != move.newX || y != move.newY; x += xMove, y += yMove)
+            if (!spacesOccupied.isPositionEmpty(new Position(x, y)))
+                return true;
+
+        return false;
     }
 
-    public void update() {
+    private void syncBoards() {
+        for (int i = 0; i < masterBoard.length; i++)
+            spacesOccupied.board[i] = (byte) (whiteOccupied.board[i] | blackOccupied.board[i]);
+    }
 
-        for (int y = 0; y < masterBoard.length; ++y) {
-            for (int x = 0; x < masterBoard.length; ++x) {
+    public void move(Position oldPos, Position newPos) {
+        if (masterBoard[oldPos.x][oldPos.y] != null) {
 
-                if (masterBoard[x][y] != null) {
-                    if (masterBoard[x][y].getColour() == Colour.WHITE)
-                        whiteOccupied.setPositionToOne(new Position(x, y));
-                    else
-                        blackOccupied.setPositionToOne(new Position(x, y));
-                }
+            masterBoard[newPos.x][newPos.y] = masterBoard[oldPos.x][oldPos.y];
+            masterBoard[oldPos.x][oldPos.y] = null;
+            // Update the boards...
+            if (masterBoard[newPos.x][newPos.y].getColour() == Colour.WHITE) {
+                whiteOccupied.setPositionToOne(newPos);
+                blackOccupied.setPositionToZero(newPos);
+                whiteOccupied.setPositionToZero(oldPos);
+            } else {
+                blackOccupied.setPositionToOne(newPos);
+                whiteOccupied.setPositionToZero(newPos);
+                blackOccupied.setPositionToZero(oldPos);
             }
         }
-
-        for (int i = 0; i < 8; i++) {
-            spacesOccupied.board[i] |= whiteOccupied.board[i];
-            spacesOccupied.board[i] |= blackOccupied.board[i];
-        }
+        syncBoards();
     }
 
     public void print() {
@@ -146,6 +162,16 @@ public class Game {
             }
             System.out.println();
         }
+    }
+
+    public void printOccupied() {
+        spacesOccupied.print();
+    }
+    public void printOccupiedBlack() {
+        blackOccupied.print();
+    }
+    public void printOccupiedWhite() {
+        whiteOccupied.print();
     }
 
 }

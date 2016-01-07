@@ -28,5 +28,17 @@ public class BitBoard {
         board[pos.y] |= Utils.getBitAtPosition(pos.x);
     }
 
+    public void print() {
+
+        for (int y = 0; y < board.length; ++y) {
+            for (int x = 0; x < board.length; ++x) {
+                if (isPositionEmpty(new Position(x, y)))
+                    System.out.print(" ");
+                else
+                    System.out.print("1");
+            }
+            System.out.println();
+        }
+    }
 }
 

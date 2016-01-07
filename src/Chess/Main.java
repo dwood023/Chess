@@ -9,8 +9,10 @@ public class Main {
 
         Game game = new Game();
 
-        game.update();
         game.print();
+        game.printOccupied();
+        game.printOccupiedBlack();
+        game.printOccupiedWhite();
 
     }
 }
