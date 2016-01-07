@@ -31,17 +31,14 @@ public class Game {
         masterBoard[6][7] = new Knight(Colour.BLACK);
         masterBoard[7][7] = new Rook(Colour.BLACK);
 
-        for (int y = 0; y < masterBoard.length; ++y) {
-            for (int x = 0; x < masterBoard.length; ++x) {
-
+        for (int y = 0; y < masterBoard.length; ++y)
+            for (int x = 0; x < masterBoard.length; ++x)
                 if (masterBoard[x][y] != null) {
                     if (masterBoard[x][y].getColour() == Colour.WHITE)
                         whiteOccupied.setPositionToOne(new Position(x, y));
                     else
                         blackOccupied.setPositionToOne(new Position(x, y));
                 }
-            }
-        }
 
         syncBoards();
 
