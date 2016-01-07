@@ -9,10 +9,7 @@ public class Main {
 
         Game game = new Game();
 
-        game.print();
-        game.printOccupied();
-        game.printOccupiedBlack();
-        game.printOccupiedWhite();
+        game.play();
 
     }
 }

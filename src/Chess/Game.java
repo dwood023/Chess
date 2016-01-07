@@ -2,6 +2,8 @@ package Chess;
 
 import Chess.Board.*;
 
+import java.util.Scanner;
+
 /**
  * Created by dwood on 21/12/2015.
  */
@@ -53,6 +55,39 @@ public class Game {
     protected BitBoard spacesOccupied = new BitBoard();
 
     // BEHAVIOUR
+
+    public void play() {
+
+        boolean checkmate = false;
+        Scanner in = new Scanner(System.in);
+
+        while (!checkmate) {
+            print();
+            playerTurn(Colour.WHITE);
+            print();
+            playerTurn(Colour.BLACK);
+        }
+    }
+
+    private void playerTurn(Colour colour) {
+
+        boolean hasMoved = false;
+        String whoseTurn = (colour == Colour.BLACK) ? "Black's" : "Whites";
+
+        System.out.println(whoseTurn + " turn");
+
+        do {
+            System.out.println("Enter coordinates for piece to move (X,Y)");
+            Position oldPos = Utils.getPositionInput();
+            System.out.println("Enter coordinates to move to");
+            Position newPos = Utils.getPositionInput();
+            if (validMove(colour, oldPos, newPos)) {
+                move(oldPos, newPos);
+                hasMoved = true;
+            }
+        } while (!hasMoved);
+
+    }
 
     public boolean validMove(Colour playerColour, Position oldPos, Position newPos) {
 
@@ -131,33 +166,55 @@ public class Game {
 
     public void print() {
 
+        System.out.print("    ");
+        for (int i = 0; i < 8; ++i)
+            System.out.print(i + "   ");
+        System.out.println();
+
         for (int y = 0; y < masterBoard.length; ++y) {
+            System.out.print(y + "   ");
             for (int x = 0; x < masterBoard.length; ++x) {
 
                 if (masterBoard[x][y] != null) {
 
-                    if (masterBoard[x][y] instanceof Pawn)
-                        System.out.print("P");
-                    else if (masterBoard[x][y] instanceof Queen)
-                        System.out.print("Q");
-                    else if (masterBoard[x][y] instanceof King)
-                        System.out.print("K");
-                    else if (masterBoard[x][y] instanceof Knight)
-                        System.out.print("H");
-                    else if (masterBoard[x][y] instanceof Rook)
-                        System.out.print("R");
-                    else if (masterBoard[x][y] instanceof Bishop)
-                        System.out.print("B");
+                    if (masterBoard[x][y].getColour() == Colour.WHITE) {
+                        if (masterBoard[x][y] instanceof Pawn)
+                            System.out.print("WP");
+                        else if (masterBoard[x][y] instanceof Queen)
+                            System.out.print("WQ");
+                        else if (masterBoard[x][y] instanceof King)
+                            System.out.print("WK");
+                        else if (masterBoard[x][y] instanceof Knight)
+                            System.out.print("WH");
+                        else if (masterBoard[x][y] instanceof Rook)
+                            System.out.print("WR");
+                        else if (masterBoard[x][y] instanceof Bishop)
+                            System.out.print("WB");
+                    }
+                    else {
+                        if (masterBoard[x][y] instanceof Pawn)
+                            System.out.print("BP");
+                        else if (masterBoard[x][y] instanceof Queen)
+                            System.out.print("BQ");
+                        else if (masterBoard[x][y] instanceof King)
+                            System.out.print("BK");
+                        else if (masterBoard[x][y] instanceof Knight)
+                            System.out.print("BH");
+                        else if (masterBoard[x][y] instanceof Rook)
+                            System.out.print("BR");
+                        else if (masterBoard[x][y] instanceof Bishop)
+                            System.out.print("BB");
+                    }
                 }
                 else {
-                    System.out.print(" ");
+                    System.out.print("  ");
                 }
 
-                System.out.print(" ");
+                System.out.print("  ");
 
 
             }
-            System.out.println();
+            System.out.println("\n");
         }
     }
 
