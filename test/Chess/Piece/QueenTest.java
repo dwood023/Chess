@@ -1,8 +1,9 @@
-package Chess.Board;
+package Chess.Piece;
 
-import Chess.Colour;
-import Chess.Movement;
-import Chess.Position;
+import Chess.Data.Colour;
+import Chess.Data.Movement;
+import Chess.Data.Position;
+import Chess.Piece.Queen;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
@@ -20,7 +21,7 @@ public class QueenTest {
         Position oldPos = new Position(3, 4);
         Position newPos = new Position(7, 4);
 
-        assertTrue(queen.validMove(new Movement(oldPos, newPos, false)));
+        assertTrue(queen.validMove(new Movement(oldPos, newPos)));
     }
     @Test
     public void testValidMove2() throws Exception {
@@ -28,7 +29,7 @@ public class QueenTest {
         Position oldPos = new Position(3, 4);
         Position newPos = new Position(0, 1);
 
-        assertTrue(queen.validMove(new Movement(oldPos, newPos, false)));
+        assertTrue(queen.validMove(new Movement(oldPos, newPos)));
     }
 
     @Test
@@ -37,6 +38,6 @@ public class QueenTest {
         Position oldPos = new Position(3, 4);
         Position newPos = new Position(6, 3);
 
-        assertFalse(queen.validMove(new Movement(oldPos, newPos, false)));
+        assertFalse(queen.validMove(new Movement(oldPos, newPos)));
     }
 }

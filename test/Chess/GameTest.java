@@ -1,13 +1,13 @@
 package Chess;
 
-import Chess.Board.King;
-import Chess.Board.Queen;
+import Chess.Data.Movement;
+import Chess.Data.Position;
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Created by dwood on 06/01/2016.
@@ -32,7 +32,9 @@ public class GameTest {
         Position oldPos = new Position(3, 6);
         Position newPos = new Position(3, 5);
 
-        assertTrue(game.validMove(Colour.BLACK, oldPos, newPos));
+        Movement move = new Movement(oldPos, newPos);
+
+        assertTrue(game.validMove(game.blackPlayer, move));
 
     }
 
@@ -42,7 +44,9 @@ public class GameTest {
         Position oldPos = new Position(3, 1);
         Position newPos = new Position(3, 2);
 
-        assertTrue(game.validMove(Colour.WHITE, oldPos, newPos));
+        Movement move = new Movement(oldPos, newPos);
+
+        assertTrue(game.validMove(game.whitePlayer, move));
 
     }
 
@@ -52,31 +56,33 @@ public class GameTest {
         Position oldPos = new Position(1, 0);
         Position newPos = new Position(2, 2);
 
-        assertTrue(game.validMove(Colour.WHITE, oldPos, newPos));
+        Movement move = new Movement(oldPos, newPos);
+
+        assertTrue(game.validMove(game.whitePlayer, move));
 
     }
 
     @Test
-    public void testIsBlocked() throws Exception {
+    public void testValidMoveObstructed() {
 
-        Position oldPos = new Position(3, 1);
-        Position newPos = new Position(3, 7);
+        Position oldPos = new Position(2, 0);
+        Position newPos = new Position(4, 2);
 
-        Movement move = new Movement(oldPos, newPos, false);
+        Movement move = new Movement(oldPos, newPos);
 
-        assertTrue(game.isBlocked(move));
+        assertFalse(game.validMove(game.whitePlayer, move));
 
     }
 
     @Test
-    public void testIsBlockedFalse() throws Exception {
+    public void testValidMoveWrongColour() {
 
-        Position oldPos = new Position(4, 3);
-        Position newPos = new Position(4, 5);
+        Position oldPos = new Position(6, 0);
+        Position newPos = new Position(5, 2);
 
-        Movement move = new Movement(oldPos, newPos, false);
+        Movement move = new Movement(oldPos, newPos);
 
-        assertFalse(game.isBlocked(move));
+        assertFalse(game.validMove(game.blackPlayer, move));
 
     }
 
@@ -86,22 +92,11 @@ public class GameTest {
         Position oldPos = new Position(3, 1);
         Position newPos = new Position(3, 3);
 
-        game.move(oldPos, newPos);
+        Movement move = new Movement(oldPos, newPos);
 
-        assertTrue(game.whiteOccupied.isPositionEmpty(oldPos));
-        assertFalse(game.whiteOccupied.isPositionEmpty(newPos));
+        game.move(move);
+
+        assertFalse(game.whitePlayer.hasPieceAt(oldPos));
+        assertTrue(game.whitePlayer.hasPieceAt(newPos));
     }
-
-    @Test
-    public void testSyncBoards() throws Exception {
-
-        Position oldPos = new Position(3, 1);
-        Position newPos = new Position(3, 3);
-
-        game.move(oldPos, newPos);
-
-        assertTrue(game.spacesOccupied.isPositionEmpty(oldPos));
-        assertFalse(game.spacesOccupied.isPositionEmpty(newPos));
-    }
-
 }

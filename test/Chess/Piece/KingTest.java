@@ -1,8 +1,9 @@
-package Chess.Board;
+package Chess.Piece;
 
-import Chess.Colour;
-import Chess.Movement;
-import Chess.Position;
+import Chess.Data.Colour;
+import Chess.Data.Movement;
+import Chess.Data.Position;
+import Chess.Piece.King;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
@@ -20,7 +21,7 @@ public class KingTest {
         Position oldPos = new Position(3, 4);
         Position newPos = new Position(4, 3);
 
-        assertTrue(king.validMove(new Movement(oldPos, newPos, false)));
+        assertTrue(king.validMove(new Movement(oldPos, newPos)));
     }
 
     @Test
@@ -29,7 +30,7 @@ public class KingTest {
         Position oldPos = new Position(3, 4);
         Position newPos = new Position(2, 4);
 
-        assertTrue(king.validMove(new Movement(oldPos, newPos, false)));
+        assertTrue(king.validMove(new Movement(oldPos, newPos)));
     }
 
     @Test
@@ -38,6 +39,6 @@ public class KingTest {
         Position oldPos = new Position(3, 4);
         Position newPos = new Position(5, 4);
 
-        assertFalse(king.validMove(new Movement(oldPos, newPos, false)));
+        assertFalse(king.validMove(new Movement(oldPos, newPos)));
     }
 }

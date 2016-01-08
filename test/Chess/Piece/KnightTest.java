@@ -1,8 +1,9 @@
-package Chess.Board;
+package Chess.Piece;
 
-import Chess.Colour;
-import Chess.Movement;
-import Chess.Position;
+import Chess.Data.Colour;
+import Chess.Data.Movement;
+import Chess.Data.Position;
+import Chess.Piece.Knight;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
@@ -20,7 +21,7 @@ public class KnightTest {
         Position oldPos = new Position(3, 4);
         Position newPos = new Position(5, 3);
 
-        Movement move = new Movement(oldPos, newPos, false);
+        Movement move = new Movement(oldPos, newPos);
 
         assertTrue(knight.validMove(move));
 
@@ -32,7 +33,7 @@ public class KnightTest {
         Position oldPos = new Position(3, 4);
         Position newPos = new Position(4, 2);
 
-        Movement move = new Movement(oldPos, newPos, false);
+        Movement move = new Movement(oldPos, newPos);
 
         assertTrue(knight.validMove(move));
     }
@@ -43,7 +44,7 @@ public class KnightTest {
         Position oldPos = new Position(3, 4);
         Position newPos = new Position(4, 6);
 
-        Movement move = new Movement(oldPos, newPos, false);
+        Movement move = new Movement(oldPos, newPos);
 
         assertTrue(knight.validMove(move));
     }
@@ -54,7 +55,7 @@ public class KnightTest {
         Position oldPos = new Position(3, 4);
         Position newPos = new Position(4, 4);
 
-        Movement move = new Movement(oldPos, newPos, false);
+        Movement move = new Movement(oldPos, newPos);
 
         assertFalse(knight.validMove(move));
     }
@@ -65,7 +66,7 @@ public class KnightTest {
         Position oldPos = new Position(3, 4);
         Position newPos = new Position(1, 7);
 
-        Movement move = new Movement(oldPos, newPos, false);
+        Movement move = new Movement(oldPos, newPos);
 
         assertFalse(knight.validMove(move));
     }

@@ -1,4 +1,4 @@
-package Chess;
+package Chess.Data;
 
 /**
  * Created by dwood on 22/12/2015.

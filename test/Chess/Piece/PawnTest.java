@@ -1,8 +1,10 @@
-package Chess.Board;
+package Chess.Piece;
 
-import Chess.Colour;
-import Chess.Movement;
-import Chess.Position;
+import Chess.Data.Capture;
+import Chess.Data.Colour;
+import Chess.Data.Movement;
+import Chess.Data.Position;
+import Chess.Piece.Pawn;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
@@ -21,7 +23,7 @@ public class PawnTest {
         Position oldPos = new Position(3, 4);
         Position newPos = new Position(3, 3);
 
-        assertTrue(blackPawn.validMove(new Movement(oldPos, newPos, false)));
+        assertTrue(blackPawn.validMove(new Movement(oldPos, newPos)));
 
     }
 
@@ -31,7 +33,7 @@ public class PawnTest {
         Position oldPos = new Position(3, 4);
         Position newPos = new Position(3, 5);
 
-        assertTrue(whitePawn.validMove(new Movement(oldPos, newPos, false)));
+        assertTrue(whitePawn.validMove(new Movement(oldPos, newPos)));
 
     }
 
@@ -41,7 +43,7 @@ public class PawnTest {
         Position oldPos = new Position(3, 4);
         Position newPos = new Position(3, 5);
 
-        assertFalse(blackPawn.validMove(new Movement(oldPos, newPos, false)));
+        assertFalse(blackPawn.validMove(new Movement(oldPos, newPos)));
 
     }
 
@@ -51,7 +53,7 @@ public class PawnTest {
         Position oldPos = new Position(3, 4);
         Position newPos = new Position(3, 3);
 
-        assertFalse(whitePawn.validMove(new Movement(oldPos, newPos, false)));
+        assertFalse(whitePawn.validMove(new Movement(oldPos, newPos)));
 
     }
 
@@ -61,7 +63,7 @@ public class PawnTest {
         Position oldPos = new Position(3, 1);
         Position newPos = new Position(3, 3);
 
-        assertTrue(whitePawn.validMove(new Movement(oldPos, newPos, false)));
+        assertTrue(whitePawn.validMove(new Movement(oldPos, newPos)));
 
     }
 
@@ -71,7 +73,7 @@ public class PawnTest {
         Position oldPos = new Position(3, 6);
         Position newPos = new Position(3, 4);
 
-        assertTrue(blackPawn.validMove(new Movement(oldPos, newPos, false)));
+        assertTrue(blackPawn.validMove(new Movement(oldPos, newPos)));
 
     }
 
@@ -81,7 +83,7 @@ public class PawnTest {
         Position oldPos = new Position(3, 1);
         Position newPos = new Position(3, 3);
 
-        assertFalse(blackPawn.validMove(new Movement(oldPos, newPos, false)));
+        assertFalse(blackPawn.validMove(new Movement(oldPos, newPos)));
 
     }
 
@@ -91,7 +93,16 @@ public class PawnTest {
         Position oldPos = new Position(3, 6);
         Position newPos = new Position(3, 4);
 
-        assertFalse(whitePawn.validMove(new Movement(oldPos, newPos, false)));
+        assertFalse(whitePawn.validMove(new Movement(oldPos, newPos)));
 
+    }
+
+    @Test
+    public void testValidMoveCapture() {
+        Position oldPos = new Position(3, 4);
+        Position newPos = new Position(4, 5);
+
+        assertTrue(whitePawn.validMove(new Capture(oldPos, newPos)));
+        assertFalse(whitePawn.validMove(new Movement(oldPos, newPos)));
     }
 }

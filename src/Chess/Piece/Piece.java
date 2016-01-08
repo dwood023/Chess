@@ -1,6 +1,7 @@
-package Chess.Board;
+package Chess.Piece;
 
-import Chess.*;
+import Chess.Data.Colour;
+import Chess.Data.Movement;
 
 /**
  * Created by dwood on 21/12/2015.
@@ -24,4 +25,15 @@ public abstract class Piece {
         return colour;
     }
 
+    // Override in Knight
+    public boolean canJump() {
+        return false;
+    }
+
+    @Override
+    public String toString() {
+        String pieceStr = (getColour() == Colour.BLACK) ? "B" : "W";
+
+        return pieceStr;
+    }
 }

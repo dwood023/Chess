@@ -1,8 +1,9 @@
-package Chess.Board;
+package Chess.Piece;
 
-import Chess.Colour;
-import Chess.Movement;
-import Chess.Position;
+import Chess.Data.Colour;
+import Chess.Data.Movement;
+import Chess.Data.Position;
+import Chess.Piece.Bishop;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
@@ -20,7 +21,7 @@ public class BishopTest {
         Position oldPos = new Position(3, 4);
         Position newPos = new Position(5, 6);
 
-        assertTrue(bishop.validMove(new Movement(oldPos, newPos, false)));
+        assertTrue(bishop.validMove(new Movement(oldPos, newPos)));
 
     }
 
@@ -30,7 +31,7 @@ public class BishopTest {
         Position oldPos = new Position(3, 4);
         Position newPos = new Position(1, 6);
 
-        assertTrue(bishop.validMove(new Movement(oldPos, newPos, false)));
+        assertTrue(bishop.validMove(new Movement(oldPos, newPos)));
 
     }
 
@@ -40,7 +41,7 @@ public class BishopTest {
         Position oldPos = new Position(3, 4);
         Position newPos = new Position(6, 6);
 
-        assertFalse(bishop.validMove(new Movement(oldPos, newPos, false)));
+        assertFalse(bishop.validMove(new Movement(oldPos, newPos)));
 
     }
 }

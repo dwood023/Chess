@@ -1,7 +1,7 @@
-package Chess.Board;
+package Chess.Piece;
 
-import Chess.Colour;
-import Chess.Movement;
+import Chess.Data.Colour;
+import Chess.Data.Movement;
 
 /**
  * Created by dwood on 29/12/2015.
@@ -33,16 +33,21 @@ public class Pawn extends Piece {
     @Override
     public boolean validMove(Movement move) {
 
-        if (move.newY == (move.oldY + moveOffset)) {
-            if (move.oldX == move.newX && !move.isCapture)
+        if (move.newP.y == (move.oldP.y + moveOffset)) {
+            if (move.oldP.x == move.newP.x && !move.isCapture())
                 return true;
-            else if (move.isCapture && (move.newX == move.oldX + 1 || move.newX == move.oldX - 1))
+            else if (move.isCapture() && (move.newP.x == move.oldP.x + 1 || move.newP.x == move.oldP.x - 1))
                 return true;
         }
 
-        return (!move.isCapture
-                && move.oldY == startRowIndex
-                && move.newY == (move.oldY + (moveOffset * 2)));
+        return (!move.isCapture()
+                && move.oldP.y == startRowIndex
+                && move.newP.y == (move.oldP.y + (moveOffset * 2)));
 
+    }
+
+    @Override
+    public String toString() {
+        return super.toString() + "P";
     }
 }

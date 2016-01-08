@@ -1,5 +1,7 @@
-package Chess;
+package Chess.Data;
 
+import Chess.Data.Movement;
+import Chess.Data.Position;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
@@ -17,7 +19,7 @@ public class MovementTest {
             if (y != oldPos.y) {
                 Position newPos = new Position(oldPos.x, y);
 
-                Movement moveUpDown = new Movement(oldPos, newPos, false);
+                Movement moveUpDown = new Movement(oldPos, newPos);
 
                 assertTrue(moveUpDown.isStraightLine());
             }
@@ -32,7 +34,7 @@ public class MovementTest {
             if (x != oldPos.x) {
                 Position newPos = new Position(x, oldPos.y);
 
-                Movement moveLeftRight = new Movement(oldPos, newPos, false);
+                Movement moveLeftRight = new Movement(oldPos, newPos);
 
                 assertTrue(moveLeftRight.isStraightLine());
             }
@@ -45,7 +47,7 @@ public class MovementTest {
 
         Position newPos = new Position(5, 5);
 
-        Movement move = new Movement(oldPos, newPos, false);
+        Movement move = new Movement(oldPos, newPos);
 
         assertFalse(move.isStraightLine());
     }
@@ -59,7 +61,7 @@ public class MovementTest {
 
             Position newPos = new Position(x, y);
 
-            Movement move = new Movement(oldPos, newPos, false);
+            Movement move = new Movement(oldPos, newPos);
 
             assertTrue(move.isDiagonalLine());
         }
@@ -68,7 +70,7 @@ public class MovementTest {
 
             Position newPos = new Position(x, y);
 
-            Movement move = new Movement(oldPos, newPos, false);
+            Movement move = new Movement(oldPos, newPos);
 
             assertTrue(move.isDiagonalLine());
         }
@@ -83,7 +85,7 @@ public class MovementTest {
 
             Position newPos = new Position(x, y);
 
-            Movement move = new Movement(oldPos, newPos, false);
+            Movement move = new Movement(oldPos, newPos);
 
             assertTrue(move.isDiagonalLine());
         }
@@ -92,7 +94,7 @@ public class MovementTest {
 
             Position newPos = new Position(x, y);
 
-            Movement move = new Movement(oldPos, newPos, false);
+            Movement move = new Movement(oldPos, newPos);
 
             assertTrue(move.isDiagonalLine());
         }
@@ -105,7 +107,7 @@ public class MovementTest {
 
         Position newPos = new Position(5, 7);
 
-        Movement move = new Movement(oldPos, newPos, false);
+        Movement move = new Movement(oldPos, newPos);
 
         assertFalse(move.isDiagonalLine());
 

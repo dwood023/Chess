@@ -1,6 +1,6 @@
 package Chess.Board;
 
-import Chess.Position;
+import Chess.Data.Position;
 import org.junit.Test;
 
 import java.util.Arrays;
@@ -83,5 +83,13 @@ public class BitBoardTest {
                 board.board[y] = 0;
 
             }
+    }
+
+    @Test
+    public void testGetBitAtPosition() throws Exception {
+
+        for (int i = 0, expected = 128; i < 8; ++i, expected /= 2)
+            assertEquals(expected, Math.abs(BitBoard.getBitAtPosition(i)));
+
     }
 }
