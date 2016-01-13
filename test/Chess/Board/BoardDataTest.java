@@ -48,15 +48,20 @@ public class BoardDataTest {
 
     @Test
     public void testMove() throws Exception {
+        data.occupied.print();
         data.move(clearMove);
+        data.occupied.print();
         assertFalse(data.occupied.isPositionEmpty(clearMove.newP));
+        assertTrue(data.occupied.isPositionEmpty(clearMove.oldP));
     }
 
     @Test
     public void testRemoveAtPosition() throws Exception {
 
         assertFalse(data.occupied.isPositionEmpty(piece));
+        data.print();
         data.removeAtPosition(piece);
+        data.print();
         assertTrue(data.occupied.isPositionEmpty(piece));
 
     }

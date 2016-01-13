@@ -12,6 +12,10 @@ public class Bishop extends Piece {
         super(colour);
     }
 
+    /**
+     * @param move
+     * @return True, if move matches Bishop specific movement pattern
+     */
     @Override
     public boolean validMove(Movement move) {
         return move.isDiagonalLine();

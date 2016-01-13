@@ -52,16 +52,22 @@ public class BitBoardTest {
 
         Arrays.fill(board.board, (byte) 0b11111111);
 
-        for (int y = 0; y < board.board.length; ++y)
-            for (int x = 0; x < board.board.length; ++x) {
+        byte expected = (byte) 0b11101111;
 
-                byte expected = (byte) ((byte) 0b01111111 >>> x);
+        board.setPositionToZero(new Position(3, 4));
 
-                board.setPositionToZero(new Position(x, y));
+        assertEquals(expected, board.board[4]);
 
-                assertEquals(expected, board.board[y]);
-            }
+    }
 
+    @Test
+    public void testSetPositionToZero2() {
+
+        BitBoard board = new BitBoard();
+        Position pos = new Position(3,4);
+        board.setPositionToZero(pos);
+
+        assertTrue(board.isPositionEmpty(pos));
     }
 
     @Test

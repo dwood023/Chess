@@ -12,6 +12,10 @@ public class Rook extends Piece {
         super(colour);
     }
 
+    /**
+     * @param move
+     * @return True, if move is straight
+     */
     @Override
     public boolean validMove(Movement move) {
         return move.isStraightLine();

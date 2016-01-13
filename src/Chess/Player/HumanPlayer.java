@@ -16,20 +16,40 @@ public class HumanPlayer extends Player {
         super(colour, occupied);
     }
 
+    /**
+     * Prompts user to input old and new positions
+     * @exception ArrayIndexOutOfBoundsException, recalls method
+     * @exception IllegalArgumentException, recalls method
+     * @return new Movement from input positions
+     */
     @Override
     public Movement getMove() {
-        System.out.println("Enter coordinates for piece to move (X,Y)");
-        Position oldPos = getPositionInput();
-        System.out.println("Enter coordinates to move to");
-        Position newPos = getPositionInput();
-        return new Movement(oldPos, newPos);
-
+        try {
+            System.out.println("Enter coordinates for piece to move (X,Y)");
+            Position oldPos = getPositionInput();
+            System.out.println("Enter coordinates to move to");
+            Position newPos = getPositionInput();
+            return new Movement(oldPos, newPos);
+        }
+        catch (ArrayIndexOutOfBoundsException | IllegalArgumentException e) {
+            System.out.println("Invalid Position");
+            return getMove();
+        }
     }
 
-    private Position getPositionInput() {
+    /**
+     * @return new position from System.in input in the form (x,y)
+     * @throws IllegalArgumentException, if position is out of board range, derived from boardData.occupied length
+     * @throws ArrayIndexOutOfBoundsException, arguments in wrong format
+     */
+    private Position getPositionInput() throws ArrayIndexOutOfBoundsException {
         Scanner in = new Scanner(System.in);
         String inStr = in.nextLine();
         String[] coords = inStr.split(",", 2);
-        return new Position(Integer.parseInt(coords[0]),Integer.parseInt(coords[1]));
+        int x = Integer.parseInt(coords[0]);
+        int y = Integer.parseInt(coords[1]);
+        if (x >= boardData.getBoard().getLength() || y >= boardData.getBoard().getLength())
+            throw new IllegalArgumentException();
+        return new Position(x,y);
     }
 }

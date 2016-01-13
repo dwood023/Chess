@@ -25,11 +25,27 @@ public class Pawn extends Piece {
 
     // DATA
 
+    /**
+     * Used to store the start position of the piece, dependant on colour
+     */
     private byte startRowIndex;
+    /**
+     * Used to store the allowed direction of movement, dependant on colour
+     */
     private byte moveOffset;
 
     // BEHAVIOUR
 
+    /**
+     * Pawns can move:
+     * <ul>
+     *     <li>One square in moveOffset direction</li>
+     *     <li>Two squares in moveOffset direction, if at startRowIndex</li>
+     *     <li>One square in moveOffset direction and one square left/right, if move.isCapture()</li>
+     * </ul>
+     * @param move
+     * @return True, if movement is one of the above patterns
+     */
     @Override
     public boolean validMove(Movement move) {
 
@@ -42,6 +58,7 @@ public class Pawn extends Piece {
 
         return (!move.isCapture()
                 && move.oldP.y == startRowIndex
+                && move.getXDiff() == 0
                 && move.newP.y == (move.oldP.y + (moveOffset * 2)));
 
     }

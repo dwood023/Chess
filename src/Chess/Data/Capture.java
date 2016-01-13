@@ -13,6 +13,10 @@ public class Capture extends Movement {
         super(move);
     }
 
+    /**
+     * Pretty much just an alternative to instanceof
+     * @return always true
+     */
     @Override
     public boolean isCapture() {
         return true;

@@ -90,13 +90,14 @@ public class GameTest {
     public void testMove() throws Exception {
 
         Position oldPos = new Position(3, 1);
-        Position newPos = new Position(3, 3);
+        Position newPos = new Position(3, 6);
 
         Movement move = new Movement(oldPos, newPos);
 
-        game.move(move);
+        game.move(game.whitePlayer, move);
 
         assertFalse(game.whitePlayer.hasPieceAt(oldPos));
         assertTrue(game.whitePlayer.hasPieceAt(newPos));
+        assertFalse(game.blackPlayer.hasPieceAt(newPos));
     }
 }

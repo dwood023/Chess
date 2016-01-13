@@ -8,6 +8,9 @@ import Chess.Piece.*;
  */
 public class Board {
 
+    /**
+     * Constructs a board with all pieces in their correct start positions
+     */
     public Board() {
 
         for (int i = 0; i < 8; ++i) {
@@ -37,6 +40,10 @@ public class Board {
 
     public Piece[][] board = new Piece[8][8];
 
+    /**
+     * Prints board to console in numbered grid layout
+     * Pieces are displayed according to their toString() method
+     */
     public void print() {
 
         System.out.println("----------------------------------");

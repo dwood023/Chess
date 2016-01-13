@@ -12,6 +12,10 @@ public class Queen extends Piece {
         super(colour);
     }
 
+    /**
+     * @param move
+     * @return True, if move is diagonal or straight
+     */
     @Override
     public boolean validMove(Movement move) {
         return (move.isStraightLine() || move.isDiagonalLine());

@@ -12,6 +12,10 @@ public class King extends Piece {
         super(colour);
     }
 
+    /**
+     * @param move
+     * @return True, if new position is less than two squares away
+     */
     @Override
     public boolean validMove(Movement move) {
         return move.getXDiff() < 2 && move.getYDiff() < 2;

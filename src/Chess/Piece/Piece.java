@@ -15,24 +15,34 @@ public abstract class Piece {
     }
     // DATA
 
-    private Colour colour;
+    public final Colour colour;
 
     // BEHAVIOUR
 
+    /**
+     * Validates move against piece-specific movement rules
+     * <b>Note -- Pieces don't know about the board they're on
+     * Therefore, call this method in addition to validating the state of the board</b>
+     * @param move
+     * @return
+     */
     public abstract boolean validMove(Movement move);
 
-    public Colour getColour() {
-        return colour;
-    }
-
+    /**
+     * Default false, overridden in Knight
+     * @return always false
+     */
     // Override in Knight
     public boolean canJump() {
         return false;
     }
 
+    /**
+     * @return "W"/"B" depending on colour, should prefix subclass overrides
+     */
     @Override
     public String toString() {
-        String pieceStr = (getColour() == Colour.BLACK) ? "B" : "W";
+        String pieceStr = (colour == Colour.BLACK) ? "B" : "W";
 
         return pieceStr;
     }
