@@ -1,6 +1,6 @@
 package Chess.Player;
 
-import Chess.Board.BitBoard;
+import Chess.Board.Board;
 import Chess.Data.Colour;
 import Chess.Data.Movement;
 import Chess.Data.Position;
@@ -12,8 +12,8 @@ import java.util.Scanner;
  */
 public class HumanPlayer extends Player {
 
-    public HumanPlayer(Colour colour, BitBoard occupied) {
-        super(colour, occupied);
+    public HumanPlayer(Colour colour, Board gameBoard) {
+        super(colour, gameBoard);
     }
 
     /**
@@ -48,7 +48,7 @@ public class HumanPlayer extends Player {
         String[] coords = inStr.split(",", 2);
         int x = Integer.parseInt(coords[0]);
         int y = Integer.parseInt(coords[1]);
-        if (x >= boardData.getBoard().getLength() || y >= boardData.getBoard().getLength())
+        if (x >= occupied.getLength() || y >= occupied.getLength())
             throw new IllegalArgumentException();
         return new Position(x,y);
     }

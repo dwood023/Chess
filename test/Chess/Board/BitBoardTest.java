@@ -1,5 +1,6 @@
 package Chess.Board;
 
+import Chess.Data.Movement;
 import Chess.Data.Position;
 import org.junit.Test;
 
@@ -12,6 +13,13 @@ import static org.junit.Assert.*;
  * Created by dwood on 06/01/2016.
  */
 public class BitBoardTest {
+
+    Position piece = new Position(4, 4);
+    Position blocking = new Position(5, 5);
+    Position blocking2 = new Position(2, 4);
+    Movement blockedMove = new Movement(piece, new Position(6, 6));
+    Movement blockedMove2 = new Movement(piece, new Position(1, 4));
+    Movement clearMove = new Movement(piece, new Position(3, 5));
 
     @Test
     public void testIsPositionEmptyFalse() {
@@ -44,6 +52,19 @@ public class BitBoardTest {
             }
         }
     }
+
+    @Test
+    public void testIsBlocked() throws Exception {
+        BitBoard board = new BitBoard();
+        board.setPositionToOne(piece);
+        board.setPositionToOne(blocking);
+        board.setPositionToOne(blocking2);
+
+        assertTrue(board.isBlocked(blockedMove));
+        assertTrue(board.isBlocked(blockedMove2));
+        assertFalse(board.isBlocked(clearMove));
+    }
+
 
     @Test
     public void testSetPositionToZero() {

@@ -1,7 +1,10 @@
 package Chess.Piece;
 
+import Chess.Board.Threat;
 import Chess.Data.Colour;
 import Chess.Data.Movement;
+
+import java.util.ArrayList;
 
 /**
  * Created by dwood on 21/12/2015.

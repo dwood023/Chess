@@ -10,9 +10,9 @@ import static org.junit.Assert.*;
 /**
  * Created by dwood on 08/01/2016.
  */
-public class CompositeBoardDataTest {
+public class CompositeBitBoardTest {
 
-    CompositeBoardData comp;
+    CompositeBitBoard comp;
     Position board1Pos = new Position(4, 5);
     Position board2Pos = new Position(4, 4);
     Position board3Pos = new Position(4, 6);
@@ -32,15 +32,15 @@ public class CompositeBoardDataTest {
         board2.setPositionToOne(board2Pos);
         board3.setPositionToOne(board3Pos);
 
-        comp = new CompositeBoardData(board1, board2);
+        comp = new CompositeBitBoard(board1, board2);
 
     }
 
     @Test
     public void testUpdate() throws Exception {
 
-        assertTrue(comp.hasPieceAt(board1Pos));
-        assertTrue(comp.hasPieceAt(board2Pos));
+        assertFalse(comp.isPositionEmpty(board1Pos));
+        assertFalse(comp.isPositionEmpty(board2Pos));
 
     }
 
@@ -49,7 +49,7 @@ public class CompositeBoardDataTest {
 
         comp.update(board1, board3);
 
-        assertTrue(comp.hasPieceAt(board1Pos));
-        assertTrue(comp.hasPieceAt(board3Pos));
+        assertFalse(comp.isPositionEmpty(board1Pos));
+        assertFalse(comp.isPositionEmpty(board3Pos));
     }
 }

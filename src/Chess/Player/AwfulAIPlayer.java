@@ -1,6 +1,6 @@
 package Chess.Player;
 
-import Chess.Board.BitBoard;
+import Chess.Board.Board;
 import Chess.Data.Colour;
 import Chess.Data.Movement;
 import Chess.Data.Position;
@@ -11,8 +11,9 @@ import java.util.concurrent.ThreadLocalRandom;
  * Created by dwood on 12/01/2016.
  */
 public class AwfulAIPlayer extends Player {
-    public AwfulAIPlayer(Colour colour, BitBoard occupied) {
-        super(colour, occupied);
+
+    public AwfulAIPlayer(Colour colour, Board gameBoard) {
+        super(colour, gameBoard);
     }
 
     /**

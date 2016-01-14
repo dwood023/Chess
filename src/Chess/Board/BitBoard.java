@@ -1,5 +1,6 @@
 package Chess.Board;
 
+import Chess.Data.Movement;
 import Chess.Data.Position;
 
 /**
@@ -38,6 +39,29 @@ public class BitBoard {
     public void setPositionToOne(Position pos) {
 
         board[pos.y] |= getBitAtPosition(pos.x);
+    }
+
+    /**
+     * Checks every square between move.oldPos and move.newPos
+     * Will only work consistently if movement is either a straight or diagonal line
+     * This is sufficient for standard chess pieces, as Knight shouldn't be subject to this method
+     * @param move
+     * @return true, if a position is 1 at any step in the movement
+     */
+    public boolean isBlocked(Movement move) {
+
+        // Increments towards new x and y positions
+        // Will be -1 for left/down, 1 for right/up or 0 for no movement on that axis
+        int xMove = (move.getXDiff() == 0) ? 0 : move.getSignedXDiff() / move.getXDiff();
+        int yMove = (move.getYDiff() == 0) ? 0 : move.getSignedYDiff() / move.getYDiff();
+
+        for (int x = move.oldP.x + xMove, y = move.oldP.y + yMove; x != move.newP.x || y != move.newP.y;) {
+            if (!isPositionEmpty(new Position(x, y)))
+                return true;
+            if (x != move.newP.x) x += xMove;
+            if (y != move.newP.y) y += yMove;
+        }
+        return false;
     }
 
     /**
