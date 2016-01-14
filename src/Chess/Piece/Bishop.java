@@ -3,6 +3,8 @@ package Chess.Piece;
 import Chess.Data.Colour;
 import Chess.Data.Movement;
 
+import java.util.Set;
+
 /**
  * Created by dwood on 29/12/2015.
  */

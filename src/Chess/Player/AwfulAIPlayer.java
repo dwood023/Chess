@@ -22,7 +22,7 @@ public class AwfulAIPlayer extends Player {
      */
     @Override
     public Movement getMove() {
-        Position oldPos = new Position(ThreadLocalRandom.current().nextInt(0, 8), ThreadLocalRandom.current().nextInt(0, 8));
+        Position oldPos = (Position) occupiedSet.toArray()[ThreadLocalRandom.current().nextInt(0, occupiedSet.size())];
         Position newPos = new Position(ThreadLocalRandom.current().nextInt(0, 8), ThreadLocalRandom.current().nextInt(0, 8));
         return new Movement(oldPos, newPos);
     }

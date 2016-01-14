@@ -69,4 +69,8 @@ public abstract class Player {
     public BitBoard getOccupied() {
         return occupied;
     }
+
+    public Set<Position> getOccupiedSet() {
+        return occupiedSet;
+    }
 }
